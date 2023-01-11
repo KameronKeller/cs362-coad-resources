@@ -115,7 +115,8 @@ Airbrake.configure do |c|
   c.logger = Rails.logger
   c.environment = ENV['AIRBRAKE_ENV']
   c.ignore_environments = %w[development test]
-  c.blacklist_keys = [/password/i, /authorization/i]
+  # c.blacklist_keys = [/password/i, /authorization/i]
+  c.blocklist_keys = [/password/i, /authorization/i]
 end
 
 # A filter that collects request body information. Enable it if you are sure you
