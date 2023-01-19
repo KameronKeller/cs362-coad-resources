@@ -1,3 +1,7 @@
+# Description: The ticket class represents a help ticket that a user can submit for a need they have.
+# Validates form info.
+# Sets the scope for status filter based on user type.
+
 class Ticket < ApplicationRecord
 
   belongs_to :region

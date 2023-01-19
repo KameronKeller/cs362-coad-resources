@@ -1,3 +1,5 @@
+# Description: Validates name of region.
+# Represents a region (such as city or town).
 class Region < ApplicationRecord
 
   has_many :tickets

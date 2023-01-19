@@ -1,3 +1,7 @@
+# Description: The user class represents either an admin or an organization.
+# The default role is an organization.
+# Validates email and sets user authentication through 'devise'.
+
 class User < ApplicationRecord
 
   enum role: [:admin, :organization]

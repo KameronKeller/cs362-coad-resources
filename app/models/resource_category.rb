@@ -1,3 +1,7 @@
+# Description: The resource category represents the various categories that tickets can belong to.
+# Validates the name of the category.
+# A resource category can be activated or deactivated.
+
 class ResourceCategory < ApplicationRecord
 
   has_and_belongs_to_many :organizations
