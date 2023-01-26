@@ -13,4 +13,8 @@ RSpec.describe Region, type: :model do
     result = region.to_s
   end
 
+  describe 'associations' do
+    it { should have_many(:tickets).class_name('Ticket') }
+  end
+
 end
