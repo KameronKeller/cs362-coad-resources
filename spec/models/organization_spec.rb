@@ -109,14 +109,6 @@ RSpec.describe Organization, type: :model do
   end
 
   describe 'validations' do
-    # validates_presence_of :email, :name, :phone, :status, :primary_name, :secondary_name, :secondary_phone
-    # validates_length_of :email, minimum: 1, maximum: 255, on: :create
-    # validates :email, format: { with: VALID_EMAIL_REGEX }
-    # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    # validates_uniqueness_of :email, case_sensitive: false
-    # validates_length_of :name, minimum: 1, maximum: 255, on: :create
-    # validates_uniqueness_of :name, case_sensitive: false
-    # validates_length_of :description, maximum: 1020, on: :create
    
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:email) }
