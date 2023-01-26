@@ -102,5 +102,12 @@ RSpec.describe Organization, type: :model do
     expect(organization).to respond_to(:agreement_eight)
   end
 
+  describe 'associations' do
+    it { should have_many(:users).class_name('User') }
+    it { should have_many(:tickets).class_name('Ticket') }
+    it { should have_and_belong_to_many(:resource_categories).class_name('ResourceCategory') }
+  end
+
 
 end
+
