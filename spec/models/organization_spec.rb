@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Organization, type: :model do
+  let(:organization) { Organization.new }
 
   it "has a name" do
     organization = Organization.new
@@ -136,6 +137,27 @@ RSpec.describe Organization, type: :model do
     it { should validate_length_of(:description).is_at_most(1020).on(:create) }
   end
 
+ 
+    it "can set status to approved" do
+      organization.approve
+      expect(organization.status).to eq("approved")
+    end
+
+    it "can set status to rejected" do
+      organization.reject
+      expect(organization.status).to eq("rejected")
+    end
+
+    #ASK BEEEEJ!
+    it "can set default status to submitted" do
+      organization.set_default_status
+      expect(organization.status).to eq("submitted")
+    end
+
+    it "can return the name with to_s" do
+      organization.name = "test_name"
+      expect(organization.to_s).to eq("test_name")
+    end
 
 end
 
