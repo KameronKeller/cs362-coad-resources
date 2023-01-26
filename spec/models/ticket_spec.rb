@@ -48,4 +48,30 @@ RSpec.describe Ticket, type: :model do
     it { should belong_to(:organization).optional }
   end
 
+  # validates_presence_of :name, :phone, :region_id, :resource_category_id
+  # validates_length_of :name, minimum: 1, maximum: 255, on: :create
+  # validates_length_of :description, maximum: 1020, on: :create
+  # validates :phone, phony_plausible: true
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:phone) }
+    it { should validate_presence_of(:region_id) }
+    it { should validate_presence_of(:resource_category_id) }
+
+    it { should validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
+
+    it { should validate_length_of(:description).is_at_most(1020).on(:create) }
+
+    it { should allow_value('1-541-456-7890').for(:phone) }
+    it {  allow_value('1-111-111-1111').for(:phone) }
+    it { should_not allow_value('123l').for(:phone) }
+
+    #FOLLOW UP WITH BEEJ HERE!!
+    # it "validates phone using phony_plausible" do
+    #   expect(Ticket.validators_on(:phone).to include(PhonyPlausibleValidator))
+    # end
+  end
+
+
 end
