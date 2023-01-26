@@ -108,6 +108,42 @@ RSpec.describe Organization, type: :model do
     it { should have_and_belong_to_many(:resource_categories).class_name('ResourceCategory') }
   end
 
+  describe 'validations' do
+    # validates_presence_of :email, :name, :phone, :status, :primary_name, :secondary_name, :secondary_phone
+    # validates_length_of :email, minimum: 1, maximum: 255, on: :create
+    # validates :email, format: { with: VALID_EMAIL_REGEX }
+    # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    # validates_uniqueness_of :email, case_sensitive: false
+    # validates_length_of :name, minimum: 1, maximum: 255, on: :create
+    # validates_uniqueness_of :name, case_sensitive: false
+    # validates_length_of :description, maximum: 1020, on: :create
+   
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:phone) }
+    it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:primary_name) }
+    it { should validate_presence_of(:secondary_name) }
+    it { should validate_presence_of(:secondary_phone) }
+    
+    it { should validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
+    
+    it { should allow_value('12345@gmail.com').for(:email) }
+    it { should allow_value('test-email@emailserver.com').for(:email) }
+    it { should allow_value('testemail@emailserver.com').for(:email) }
+    it { should_not allow_value('12345@gmail').for(:email) }
+    it { should_not allow_value('@yahoo.com').for(:email) }
+    it { should_not allow_value('custom_email@.com').for(:email) }
+
+    it { should validate_uniqueness_of(:email).case_insensitive }
+
+    it { should validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
+    
+    it { should validate_uniqueness_of(:name).case_insensitive }
+    
+    it { should validate_length_of(:description).is_at_most(1020).on(:create) }
+  end
+
 
 end
 
