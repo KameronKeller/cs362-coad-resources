@@ -17,8 +17,8 @@ RSpec.describe User, type: :model do
     expect(user).to respond_to(:role)
   end
 
-  # describe 'associations' do
-  #   it { should have_many(:tickets).class_name('Ticket') }
-  # end
+  describe 'associations' do
+    it { should belong_to(:organization).optional }
+  end
 
 end
