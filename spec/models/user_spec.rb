@@ -53,4 +53,10 @@ RSpec.describe User, type: :model do
   #   email
   # end
 
+
+  it "can return the user email with to_s" do
+    user.email = "test_name@test.com"
+    expect(user.to_s).to eq("test_name@test.com")
+  end
+
 end
