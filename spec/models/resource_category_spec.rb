@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
+  let(:resource_category) { ResourceCategory.new }
 
   it "has a name" do
     resource_category = ResourceCategory.new
@@ -31,7 +32,7 @@ RSpec.describe ResourceCategory, type: :model do
 
 
 
-
+  #METHODS
   # def self.unspecified
   #   ResourceCategory.find_or_create_by(name: 'Unspecified')
   # end
@@ -40,20 +41,30 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
 
-  # def activate
-  #   self.update(active: true)
-  # end
+  it "can set active to true" do
+    resource_category.activate 
+    expect(resource_category.update).to eq("true")
+  end
 
-  # def deactivate
-  #   self.update(active: false)
-  # end
+  it "can set active to false" do
+    resource_category.deactivate
+    expect(resource_category.update).to eq("false")
+  end
 
   # def inactive?
   #   !active?
   # end
 
-  # def to_s
-  #   name
-  # end
+  it "can check if category is inactive" do
+    resource_category.active = false
+    expect(resource_category.inactive?).to eq("true")
+  end
+
+##FIGURE OUT THIS ONE
+
+  it "can return the name with to_s" do
+    resource_category.name = "test_name"
+    expect(resource_category.to_s).to eq("test_name")
+  end
 
 end
