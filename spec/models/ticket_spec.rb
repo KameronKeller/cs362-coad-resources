@@ -83,9 +83,10 @@ RSpec.describe Ticket, type: :model do
     expect(ticket.open?).to eq(true)
   end
 
-  # def to_s
-  #   "Ticket #{id}"
-  # end
+  it "can return the ticket with its id with to_s" do
+    ticket.id = 1234
+    expect(ticket.to_s).to eq("Ticket 1234")
+  end
 
 
 end
