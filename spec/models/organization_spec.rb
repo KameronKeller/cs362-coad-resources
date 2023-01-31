@@ -148,7 +148,7 @@ RSpec.describe Organization, type: :model do
       expect(organization.status).to eq("rejected")
     end
 
-    #ASK BEEEEJ!
+    #ASK BEEJ!
     it "can set default status to submitted" do
       organization.set_default_status
       expect(organization.status).to eq("submitted")

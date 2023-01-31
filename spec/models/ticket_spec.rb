@@ -43,7 +43,8 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe 'associations' do
-    it { should belong_to(:region)} #no class name purposefully left out
+    # it { should have_many(:region).class_name('Region') }
+    it { should belong_to(:region)} #no class name purposefully left out to test if .class_name makes a difference ^ see above format
     it { should belong_to(:resource_category)}
     it { should belong_to(:organization).optional }
   end
