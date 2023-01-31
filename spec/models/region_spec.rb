@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Region, type: :model do
+  let(:region) { Region.new }
 
   it "has a name" do
     region = Region.new
@@ -25,6 +26,7 @@ RSpec.describe Region, type: :model do
     it { should validate_uniqueness_of(:name).case_insensitive }
   end
 
+  #METHODS
   it "should find or create an Unspecified region" do
     expect(Region.unspecified.name).to eq('Unspecified')
   end
