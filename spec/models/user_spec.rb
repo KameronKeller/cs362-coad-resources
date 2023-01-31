@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { User.new }
 
   it "has an email" do
     user = User.new
@@ -41,5 +42,15 @@ RSpec.describe User, type: :model do
     it { should validate_length_of(:password).is_at_least(7).is_at_most(255).on(:create)  }
     
   end
+
+  #METHODS:
+
+  # def set_default_role
+  #   self.role ||= :organization
+  # end
+
+  # def to_s
+  #   email
+  # end
 
 end
