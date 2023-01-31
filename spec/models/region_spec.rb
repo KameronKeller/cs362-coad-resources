@@ -29,4 +29,9 @@ RSpec.describe Region, type: :model do
     expect(Region.unspecified.name).to eq('Unspecified')
   end
 
+  it "can return the name with to_s" do
+    region.name = "test_name"
+    expect(region.to_s).to eq("test_name")
+  end
+
 end

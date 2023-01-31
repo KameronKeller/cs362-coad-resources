@@ -29,4 +29,31 @@ RSpec.describe ResourceCategory, type: :model do
     
   end
 
+
+
+
+  # def self.unspecified
+  #   ResourceCategory.find_or_create_by(name: 'Unspecified')
+  # end
+  it "should find or create an Unspecified ResourceCategory" do
+    expect(ResourceCategory.unspecified.name).to eq('Unspecified')
+  end
+
+
+  # def activate
+  #   self.update(active: true)
+  # end
+
+  # def deactivate
+  #   self.update(active: false)
+  # end
+
+  # def inactive?
+  #   !active?
+  # end
+
+  # def to_s
+  #   name
+  # end
+
 end
