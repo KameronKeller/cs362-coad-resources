@@ -43,24 +43,18 @@ RSpec.describe ResourceCategory, type: :model do
 
   it "can set active to true" do
     resource_category.activate 
-    expect(resource_category.update).to eq("true")
+    expect(resource_category.active).to eq(true)
   end
 
   it "can set active to false" do
     resource_category.deactivate
-    expect(resource_category.update).to eq("false")
+    expect(resource_category.active).to eq(false)
   end
-
-  # def inactive?
-  #   !active?
-  # end
 
   it "can check if category is inactive" do
     resource_category.active = false
-    expect(resource_category.inactive?).to eq("true")
+    expect(resource_category.inactive?).to eq(true)
   end
-
-##FIGURE OUT THIS ONE
 
   it "can return the name with to_s" do
     resource_category.name = "test_name"
