@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= :organization
+    # this ^ is equivalent to: self.role = self.role || :organization
   end
 
   def to_s
