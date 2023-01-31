@@ -137,7 +137,7 @@ RSpec.describe Organization, type: :model do
     it { should validate_length_of(:description).is_at_most(1020).on(:create) }
   end
 
- 
+  #METHODS
     it "can set status to approved" do
       organization.approve
       expect(organization.status).to eq("approved")
