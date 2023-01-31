@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
+  let(:ticket) { Ticket.new }
 
   it "has a name" do
     ticket = Ticket.new
@@ -69,6 +70,29 @@ RSpec.describe Ticket, type: :model do
     #   expect(Ticket.validators_on(:phone).to include(PhonyPlausibleValidator))
     # end
   end
+
+  #METHODS:
+  # def open?
+  #   !closed
+  # end
+
+  it "can check if ticket is open" do
+    resource_category.closed = false
+    expect(resource_category.open?).to eq("true")
+  end
+
+  # def captured?
+  #   organization.present?
+  # end
+
+  it "can check if ticket is captured by org" do
+    resource_category.closed = false
+    expect(resource_category.open?).to eq("true")
+  end
+
+  # def to_s
+  #   "Ticket #{id}"
+  # end
 
 
 end
