@@ -72,22 +72,15 @@ RSpec.describe Ticket, type: :model do
   end
 
   #METHODS:
-  # def open?
-  #   !closed
-  # end
 
   it "can check if ticket is open" do
-    resource_category.closed = false
-    expect(resource_category.open?).to eq("true")
+    ticket.closed = false
+    expect(ticket.open?).to eq(true)
   end
 
-  # def captured?
-  #   organization.present?
-  # end
-
   it "can check if ticket is captured by org" do
-    resource_category.closed = false
-    expect(resource_category.open?).to eq("true")
+    ticket.closed = false
+    expect(ticket.open?).to eq(true)
   end
 
   # def to_s
