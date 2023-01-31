@@ -65,10 +65,9 @@ RSpec.describe Ticket, type: :model do
     it {  allow_value('1-111-111-1111').for(:phone) }
     it { should_not allow_value('123l').for(:phone) }
 
-    #FOLLOW UP WITH BEEJ HERE!!
-    # it "validates phone using phony_plausible" do
-    #   expect(Ticket.validators_on(:phone).to include(PhonyPlausibleValidator))
-    # end
+    it "validates phone using phony_plausible" do
+      expect(Ticket.validators_on(:phone)).to include(PhonyPlausibleValidator)
+    end
   end
 
   #METHODS:
