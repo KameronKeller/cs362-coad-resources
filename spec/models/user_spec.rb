@@ -45,13 +45,14 @@ RSpec.describe User, type: :model do
 
   #METHODS:
 
-  # def set_default_role
-  #   self.role ||= :organization
-  # end
+  it "can confirm role has been set" do
+    user.role = "admin"
+    expect(user.set_default_role).to eq("admin")
+  end
 
-  # def to_s
-  #   email
-  # end
+  it "can set default organization when empty" do
+    expect(user.set_default_role).to eq("organization")
+  end
 
 
   it "can return the user email with to_s" do
