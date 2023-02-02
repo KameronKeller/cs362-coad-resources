@@ -59,4 +59,33 @@ RSpec.describe ResourceCategory, type: :model do
     expect(resource_category.to_s).to eq("test_name")
   end
 
+  # Scope
+
+  it "returns resource categories with active" do
+    resource_category = ResourceCategory.create! :active => true , :name => "test"
+    expect(ResourceCategory.active).to include(resource_category)
+  end
+
+  it "does not return resource categories with inactive" do
+    resource_category = ResourceCategory.create! :active => false , :name => "test"
+    expect(ResourceCategory.active).to_not include(resource_category)
+  end
+
+
 end
+
+
+#expect(ResourceCategory.active).to eq("resource_category_1", "resource_category_2")
+
+# describe User, ".admins" do 
+#   it "includes users with admin flag" do 
+#     admin = User.create! :admin => true 
+#     User.admin.should include(admin) 
+#   end
+
+#   it "excludes users without admin flag" do 
+#     non_admin = User.create! :admin => false 
+#     User.admin.should_not include(non_admin) 
+#   end 
+# end
+
