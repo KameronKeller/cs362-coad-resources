@@ -33,9 +33,7 @@ RSpec.describe ResourceCategory, type: :model do
 
 
   #METHODS
-  # def self.unspecified
-  #   ResourceCategory.find_or_create_by(name: 'Unspecified')
-  # end
+
   it "should find or create an Unspecified ResourceCategory" do
     expect(ResourceCategory.unspecified.name).to eq('Unspecified')
   end
