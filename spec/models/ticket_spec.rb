@@ -70,7 +70,7 @@ RSpec.describe Ticket, type: :model do
     end
   end
 
-  #METHODS:
+  # METHODS:
 
   it "can check if ticket is open" do
     ticket.closed = false
@@ -86,6 +86,39 @@ RSpec.describe Ticket, type: :model do
     ticket.id = 1234
     expect(ticket.to_s).to eq("Ticket 1234")
   end
+
+ # SCOPE:
+
+  it "returns open tickes with :open" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+
+    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+                            :organization_id => nil, :name => "test", :phone => "1-541-456-7890"
+    expect(Ticket.open).to include(ticket)
+  end
+
+  
+
+  # scope :open, -> () { where closed: false, organization_id: nil }
+
+
+  # it "returns resource categories with active" do
+  #   resource_category = ResourceCategory.create! :active => true, :name => "test"
+  #   expect(ResourceCategory.active).to include(resource_category)
+  # end
+  # it "can check open status" do
+  #   testing = Ticket.create! :open => true
+  # end
+
+
+  # scope :closed, -> () { where closed: true }
+  # scope :all_organization, -> () { where(closed: false).where.not(organization_id: nil) }
+  # scope :organization, -> (organization_id) { where(organization_id: organization_id, closed: false) }
+  # scope :closed_organization, -> (organization_id) { where(organization_id: organization_id, closed: true) }
+  # scope :region, -> (region_id) { where(region_id: region_id) }
+  # scope :resource_category, -> (resource_category_id) { where(resource_category_id: resource_category_id) }
+
 
 
 end
