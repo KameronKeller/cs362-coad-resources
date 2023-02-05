@@ -98,7 +98,36 @@ RSpec.describe Ticket, type: :model do
     expect(Ticket.open).to include(ticket)
   end
 
-  
+  it "returns closed tickets with :closed" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+
+    ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
+                            :organization_id => nil, :name => "test", :phone => "1-541-456-7890"
+    expect(Ticket.closed).to include(ticket)
+  end
+
+  it "returns tickets for all organizations with :all_organization" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+
+    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    
+    expect(Ticket.all_organization).to include(ticket)
+  end
+
+  it "returns open tickets for a specific organization with :organization" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+
+    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    
+    expect(Ticket.organization(1234)).to include(ticket)
+  end
 
   # scope :open, -> () { where closed: false, organization_id: nil }
 
