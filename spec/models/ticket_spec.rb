@@ -119,14 +119,13 @@ RSpec.describe Ticket, type: :model do
   end
 
   it "returns open tickets for a specific organization with :organization" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
-    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
-
+    region = FactoryBot.create(:region)
+    resource_category = FactoryBot.create(:resource_category)
+    organization = FactoryBot.build(:organization)
     ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
                             :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
-    expect(Ticket.organization(1234)).to include(ticket)
+    expect(Ticket.organization(organization.id)).to include(ticket)
   end
 
   # scope :open, -> () { where closed: false, organization_id: nil }
