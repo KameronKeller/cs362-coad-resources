@@ -128,25 +128,40 @@ RSpec.describe Ticket, type: :model do
     expect(Ticket.organization(organization.id)).to include(ticket)
   end
 
-  # scope :open, -> () { where closed: false, organization_id: nil }
+  it "returns tickets for all closed organizations" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+
+    ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
+                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    
+    expect(Ticket.closed_organization(organization.id)).to include(ticket)
+  end
+
+  it "returns tickets for the region specified" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+
+    ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
+                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    
+    expect(Ticket.region(region.id)).to include(ticket)
+  end
 
 
-  # it "returns resource categories with active" do
-  #   resource_category = ResourceCategory.create! :active => true, :name => "test"
-  #   expect(ResourceCategory.active).to include(resource_category)
-  # end
-  # it "can check open status" do
-  #   testing = Ticket.create! :open => true
-  # end
+  it "returns tickets for a given resource_category" do
+    region = Region.create(name: "test_region")
+    resource_category = ResourceCategory.create(name: "test_category")
+    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
 
+    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    
+    expect(Ticket.resource_category(resource_category.id)).to include(ticket)
 
-  # scope :closed, -> () { where closed: true }
-  # scope :all_organization, -> () { where(closed: false).where.not(organization_id: nil) }
-  # scope :organization, -> (organization_id) { where(organization_id: organization_id, closed: false) }
-  # scope :closed_organization, -> (organization_id) { where(organization_id: organization_id, closed: true) }
-  # scope :region, -> (region_id) { where(region_id: region_id) }
-  # scope :resource_category, -> (resource_category_id) { where(resource_category_id: resource_category_id) }
-
+  end
 
 
 end
