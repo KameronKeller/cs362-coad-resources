@@ -1,45 +1,47 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-  let(:ticket) { Ticket.new }
+  let(:region) { FactoryBot.create(:region)}
+  let(:resource_category) { FactoryBot.create(:resource_category) } 
+  let(:ticket) { FactoryBot.create(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
+  let(:closed_ticket) { FactoryBot.create(:ticket, closed: true, region_id: region.id, resource_category_id: resource_category.id) }
+
+  #consider using setup instead of let
+
+  # let(:region) { FactoryBot.build_stubbed(:region)}
+  # let(:resource_category) { FactoryBot.build_stubbed(:resource_category) } 
+  # let(:ticket) { FactoryBot.build_stubbed(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
+
 
   it "has a name" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:name)
   end
 
   it "has a description" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:description)
   end
 
   it "has a phone" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:phone)
   end
 
   it "has a organization_id" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:organization_id)
   end
 
   it "has closed" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:closed)
   end
 
   it "has closed_at" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:closed_at)
   end
 
   it "has a resource_category_id" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:resource_category_id)
   end
 
   it "has a region_id" do
-    ticket = Ticket.new
     expect(ticket).to respond_to(:region_id)
   end
 
@@ -90,78 +92,77 @@ RSpec.describe Ticket, type: :model do
  # SCOPE:
 
   it "returns open tickes with :open" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
+    #region = Region.create(name: "test_region")
+    # resource_category = ResourceCategory.create(name: "test_category")
 
-    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
-                            :organization_id => nil, :name => "test", :phone => "1-541-456-7890"
+    #ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+                            #:organization_id => nil, :name => "test", :phone => "1-541-456-7890"
     expect(Ticket.open).to include(ticket)
   end
 
   it "returns closed tickets with :closed" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
+    # region = Region.create(name: "test_region")
+    # resource_category = ResourceCategory.create(name: "test_category")
 
-    ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
-                            :organization_id => nil, :name => "test", :phone => "1-541-456-7890"
-    expect(Ticket.closed).to include(ticket)
+    # ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
+    #                         :organization_id => nil, :name => "test", :phone => "1-541-456-7890"
+    expect(Ticket.closed).to include(closed_ticket)
   end
 
   it "returns tickets for all organizations with :all_organization" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
-    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+    # region = Region.create(name: "test_region")
+    # resource_category = ResourceCategory.create(name: "test_category")
+    # organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
 
-    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
-                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    # ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+    #                         :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
     expect(Ticket.all_organization).to include(ticket)
   end
 
   it "returns open tickets for a specific organization with :organization" do
-    region = FactoryBot.create(:region)
-    resource_category = FactoryBot.create(:resource_category)
-    organization = FactoryBot.build(:organization)
-    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
-                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    # region = FactoryBot.create(:region)
+    # resource_category = FactoryBot.create(:resource_category)
+    # organization = FactoryBot.build(:organization)
+    # ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+    #                         :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
     expect(Ticket.organization(organization.id)).to include(ticket)
   end
 
   it "returns tickets for all closed organizations" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
-    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+    # region = Region.create(name: "test_region")
+    # resource_category = ResourceCategory.create(name: "test_category")
+    # organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
 
-    ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
-                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    # ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
+    #                         :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
     expect(Ticket.closed_organization(organization.id)).to include(ticket)
   end
 
   it "returns tickets for the region specified" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
-    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+    # region = Region.create(name: "test_region")
+    # resource_category = ResourceCategory.create(name: "test_category")
+    # organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
 
-    ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
-                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    # ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
+    #                         :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
     expect(Ticket.region(region.id)).to include(ticket)
   end
 
 
   it "returns tickets for a given resource_category" do
-    region = Region.create(name: "test_region")
-    resource_category = ResourceCategory.create(name: "test_category")
-    organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
+    # region = Region.create(name: "test_region")
+    # resource_category = ResourceCategory.create(name: "test_category")
+    # organization = Organization.create(name: "test_organization", email: "test@test.com", id: 1234)
 
-    ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
-                            :organization => organization, :name => "test", :phone => "1-541-456-7890"
+    # ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
+    #                         :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
     expect(Ticket.resource_category(resource_category.id)).to include(ticket)
 
   end
-
 
 end
