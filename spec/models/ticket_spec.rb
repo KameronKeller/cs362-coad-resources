@@ -3,8 +3,12 @@ require 'rails_helper'
 RSpec.describe Ticket, type: :model do
   let(:region) { FactoryBot.create(:region)}
   let(:resource_category) { FactoryBot.create(:resource_category) } 
-  let(:ticket) { FactoryBot.create(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
-  let(:closed_ticket) { FactoryBot.create(:ticket, closed: true, region_id: region.id, resource_category_id: resource_category.id) }
+  let(:organization) { FactoryBot.create(:organization)}
+  let(:ticket) { FactoryBot.create(:ticket, region_id: region.id, resource_category_id: resource_category.id, organization_id: organization.id) }
+  let(:open_ticket) { FactoryBot.create(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
+  let(:closed_ticket) { FactoryBot.create(:ticket, closed: true, region_id: region.id, resource_category_id: resource_category.id, organization_id: organization.id) }
+
+  #let(:closed_everything) { FactoryBot.create(:ticket, closed: true, region_id: region.id, resource_category_id: resource_category.id, (organization_id: organization_id, closed: true) ) }
 
   #consider using setup instead of let
 
@@ -97,7 +101,7 @@ RSpec.describe Ticket, type: :model do
 
     #ticket = Ticket.create! :closed => false, :region => region, :resource_category => resource_category,
                             #:organization_id => nil, :name => "test", :phone => "1-541-456-7890"
-    expect(Ticket.open).to include(ticket)
+    expect(Ticket.open).to include(open_ticket)
   end
 
   it "returns closed tickets with :closed" do
@@ -138,7 +142,7 @@ RSpec.describe Ticket, type: :model do
     # ticket = Ticket.create! :closed => true, :region => region, :resource_category => resource_category,
     #                         :organization => organization, :name => "test", :phone => "1-541-456-7890"
     
-    expect(Ticket.closed_organization(organization.id)).to include(ticket)
+    expect(Ticket.closed_organization(organization.id)).to include(closed_ticket)
   end
 
   it "returns tickets for the region specified" do
