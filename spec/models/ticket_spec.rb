@@ -75,8 +75,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   it "can check if ticket is captured by org" do
-    ticket.closed = false
-    expect(ticket.open?).to eq(true)
+    expect(ticket.captured?).to eq(true)
   end
 
   it "can return the ticket with its id with to_s" do
