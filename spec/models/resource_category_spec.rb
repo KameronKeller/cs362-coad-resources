@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
-  let(:resource_category) { ResourceCategory.new }
-
+  let(:resource_category) { FactoryBot.create(:resource_category) }
+  let(:active_resource_category) { FactoryBot.create(:resource_category, active: true)}
+  let(:inactive_resource_category) { FactoryBot.create(:resource_category, active: false)}
+  
   it "has a name" do
-    resource_category = ResourceCategory.new
     expect(resource_category).to respond_to(:name)
   end
 
   it "has active" do
-    resource_category = ResourceCategory.new
     expect(resource_category).to respond_to(:active)
   end
 
@@ -19,25 +19,17 @@ RSpec.describe ResourceCategory, type: :model do
     
   end
 
-
   describe 'validations' do
-
     it { should validate_presence_of(:name) }
-
     it { should validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
-
     it { should validate_uniqueness_of(:name).case_insensitive }
     
   end
 
-
-
   #METHODS
-
   it "should find or create an Unspecified ResourceCategory" do
     expect(ResourceCategory.unspecified.name).to eq('Unspecified')
   end
-
 
   it "can set active to true" do
     resource_category.activate 
@@ -62,23 +54,19 @@ RSpec.describe ResourceCategory, type: :model do
   # Scope
 
   it "returns resource categories with active" do
-    resource_category = ResourceCategory.create! :active => true, :name => "test"
-    expect(ResourceCategory.active).to include(resource_category)
+    expect(ResourceCategory.active).to include(active_resource_category)
   end
 
   it "does not return inactive resource categories when inactive" do
-    resource_category = ResourceCategory.create! :active => false, :name => "test"
-    expect(ResourceCategory.active).to_not include(resource_category)
+    expect(ResourceCategory.active).to_not include(inactive_resource_category)
   end
 
   it "returns resource categories with inactive" do
-    resource_category = ResourceCategory.create! :active => false, :name => "test"
-    expect(ResourceCategory.inactive).to include(resource_category)
+    expect(ResourceCategory.inactive).to include(inactive_resource_category)
   end
 
   it "does not return active resource categories when active" do
-    resource_category = ResourceCategory.create! :active => true, :name => "test"
-    expect(ResourceCategory.inactive).to_not include(resource_category)
+    expect(ResourceCategory.inactive).to_not include(active_resource_category)
   end  
 
 end
