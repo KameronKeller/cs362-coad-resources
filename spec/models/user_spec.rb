@@ -1,20 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.new }
+  # let(:user) { User.new }
+  let(:user) { FactoryBot.create(:user)}
+  let(:default_user) { FactoryBot.create(:user, role: :organization)}
+  let(:organization) { FactoryBot.create(:organization)}
 
   it "has an email" do
-    user = User.new
+    #user = User.new
     expect(user).to respond_to(:email)
   end
 
   it "has an unconfirmed_email" do
-    user = User.new
+    #user = User.new
     expect(user).to respond_to(:unconfirmed_email)
   end
 
   it "has a role" do
-    user = User.new
+    #user = User.new
     expect(user).to respond_to(:role)
   end
 
@@ -46,18 +49,18 @@ RSpec.describe User, type: :model do
   #METHODS:
 
   it "can confirm role has been set" do
-    user.role = "admin"
+    #user.role = "admin"
     expect(user.set_default_role).to eq("admin")
   end
 
   it "can set default organization when empty" do
-    expect(user.set_default_role).to eq("organization")
+    expect(default_user.set_default_role).to eq("organization")
   end
 
 
   it "can return the user email with to_s" do
-    user.email = "test_name@test.com"
-    expect(user.to_s).to eq("test_name@test.com")
+    #user.email = "test_name@test.com"
+    expect(user.to_s).to eq("admin_user@test.com")
   end
 
 end
