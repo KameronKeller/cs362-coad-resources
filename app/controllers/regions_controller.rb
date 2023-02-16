@@ -1,7 +1,11 @@
 class RegionsController < ApplicationController
 
-  before_action :authenticate_user!
-  before_action :authenticate_admin
+  before_action :authenticate_user! #ensures user is authenticated, will throw exception on failure (?)x  
+  before_action :authenticate_admin #ensures user is a admin
+  #^defined in ApplicationController
+  #Googling: Can register all kinds of actions to do before the handlers
+  #All admins are users: do we need both?
+
 
   def index
     @regions = Region.all
