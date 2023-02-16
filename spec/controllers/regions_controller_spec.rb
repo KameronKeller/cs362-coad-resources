@@ -6,7 +6,7 @@ RSpec.describe RegionsController, type: :controller do
     #     region_controller = RegionsController.new
     #     puts "printing here:"
     #     puts region_controller.index.length()
-    end
+    # end
 
 end
 
