@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_admin
-    redirect_to(dashboard_path, alert: 'Access denied.') unless current_user&.admin?
+    redirect_to(dashboard_path, alert: 'Access denied.') unless current_user&.admin? # &. is safer way to access (?)
   end
 
 end
