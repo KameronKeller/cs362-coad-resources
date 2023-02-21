@@ -39,8 +39,8 @@ RSpec.describe RegionsController, type: :controller do
       end
 
       describe "DELETE #destroy" do
-      let(:region) { create(:region) }
-      it { expect(delete(:destroy, params: { id: region.id })).to redirect_to(dashboard_path) }
+        let(:region) { create(:region) }
+        it { expect(delete(:destroy, params: { id: region.id })).to redirect_to(dashboard_path) }
       end
 
     end
@@ -68,6 +68,23 @@ RSpec.describe RegionsController, type: :controller do
          expect(response).to redirect_to(new_user_session_path)
        }
      end
+
+      describe "GET #edit" do
+        let(:region) { create(:region) }
+        it { expect(get(:edit, params: { id: region.id } )).to redirect_to(new_user_session_path) }
+      end
+
+      describe "PATCH #update" do #is this... correct?
+        #users don't have access to edit region, should be redirected
+          let(:region) { create(:region) } #create region to work with
+          it { expect(patch(:update, params: { id: region.id, region: {name:"updated" } })).to redirect_to(new_user_session_path) }
+      end
+
+      describe "DELETE #destroy" do
+        let(:region) { create(:region) }
+        it { expect(delete(:destroy, params: { id: region.id })).to redirect_to(new_user_session_path) }
+      end
+     
     end
 
     #ADMIN
@@ -82,7 +99,7 @@ RSpec.describe RegionsController, type: :controller do
 
       describe "GET #show" do
         let(:region) { create(:region) }
-        it { expect(get(:show, params: { id: region.id } )).to be_successful } #is this showing tickets...?
+        it { expect(get(:show, params: { id: region.id } )).to be_successful }
       end 
 
       describe "POST #create" do  
@@ -90,6 +107,24 @@ RSpec.describe RegionsController, type: :controller do
           post(:create, params: { region: attributes_for(:region) })
           expect(response).to redirect_to(regions_path) 
         }
+      end
+
+      #DONT DO THIS YET!!!!!
+      # describe "POST #create already created redirects to regions" do
+      #   let(:region) { create(:region) }
+      #   it {
+      #     post(:create, params: { region: attributes_for(:region) })
+      #     expect(response).to redirect_to(regions) 
+      #   }
+      # end
+
+      describe "GET #edit" do
+        let(:region) { create(:region) }
+        it { expect(get(:edit, params: { id: region.id } )).to be_successful }
+      end
+
+      describe "GET #new" do
+        it { expect(get(:new)).to be_successful }
       end
 
       describe "PATCH #update" do 
