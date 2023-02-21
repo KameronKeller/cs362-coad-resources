@@ -34,9 +34,9 @@ RSpec.describe RegionsController, type: :controller do
         it { expect(get(:show, params: { id: region.id } )).to redirect_to(dashboard_path) }
       end
 
-      describe "PATCH #update" do
+      describe "PATCH #update" do #is this... correct?
         let(:region) { create(:region) } #create region to work with
-        it { expect(patch(:))}
+        it { expect(patch(:update, params: {id: region.id, region: {name:"updated" }})).to be_redirect} 
         
       end
 
