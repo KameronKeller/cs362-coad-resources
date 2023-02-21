@@ -12,7 +12,7 @@ RSpec.describe RegionsController, type: :controller do
         it { expect(get(:index)).to redirect_to(dashboard_path) }
       end
 
-      describe "GET #show" do
+      describe "GET #show" do #is this showing tickets...?
         let(:region) { create(:region) }
         it { expect(get(:show, params: { id: region.id } )).to redirect_to(dashboard_path) }
       end
@@ -23,6 +23,39 @@ RSpec.describe RegionsController, type: :controller do
           expect(response).to redirect_to(dashboard_path)
         }
       end
+
+      
+      # def edit
+      #     @region = Region.find(params[:id])
+      #   end
+
+      describe "GET #edit" do #how is this different than show?
+        let(:region) { create(:region) }
+        it { expect(get(:show, params: { id: region.id } )).to redirect_to(dashboard_path) }
+      end
+
+      describe "PATCH #update" do
+        let(:region) { create(:region) } #create region to work with
+        it { expect(patch(:))}
+        
+      end
+
+
+      # describe "PATCH #update" do
+      #   context "with good data" do
+      #     it "updates the wallet and redirects" do
+      #       patch :update, id: @wallet.id, wallet: { name: "xyz", balance: "20.2"}
+      #       expect(response).to be_redirect
+      #     end
+      #   end
+      #   context "with bad data" do
+      #     it "does not change the wallet, and re-renders the form" do
+      #       patch :update, id: @wallet.id, wallet: { name: "xyz", balance: "two"}
+      #       expect(response).not_to be_redirect
+      #     end
+      #   end
+      # end
+
     end
 
 
