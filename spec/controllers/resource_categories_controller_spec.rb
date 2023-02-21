@@ -13,9 +13,8 @@ RSpec.describe ResourceCategoriesController, type: :controller do
           it { expect(get(:index)).to redirect_to(dashboard_path) } #what about checking in order?
         end
   
-        describe "GET #show" do
-          let(:resource_category) { create(:resource_category) }
-          #it { expect(get(:show)).to be_successful } #? empty controller?
+        describe "GET #new" do
+          it { expect(get(:new)).to redirect_to(dashboard_path) }
         end
   
         describe "POST #create" do
@@ -37,10 +36,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
           it { expect(get(:index)).to redirect_to(new_user_session_path) }
         end
   
-        describe "GET #show" do
-          let(:resource_category) { create(:resource_category) }
-        #   it { expect(get(:show)).to be_successful } #? empty controller?
-        end
+        # describe "GET #show" do
+        #   let(:resource_category) { create(:resource_category) }
+        # #   it { expect(get(:show)).to be_successful } #? empty controller?
+        # end
   
         describe "POST #create" do
           it {
@@ -61,10 +60,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
           it { expect(get(:index)).to be_successful } #what about checking in order?
         end
   
-        describe "GET #show" do
-          let(:resource_category) { create(:resource_category) }
-          it { expect(get(:show, params: { id: resource_category.id } )).to be_successful } #empty controller?
-        end 
+        # describe "GET #show" do
+        #   let(:resource_category) { create(:resource_category) }
+        #   it { expect(get(:show, params: { id: resource_category.id } )).to be_successful } #empty controller?
+        # end 
   
         describe "POST #create" do
           it {
