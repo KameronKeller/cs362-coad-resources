@@ -10,6 +10,17 @@ require 'rails_helper'
 #     end
 #   end
 # end
+
+
 RSpec.describe DashboardHelper, type: :helper do
+    #use a factory, traits in factory
+
+    # describe "admin user" do
+    #     #create admin user
+
+    #     it ""
+
+
+
 
 end
