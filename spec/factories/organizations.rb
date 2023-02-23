@@ -9,4 +9,8 @@ FactoryBot.define do
     secondary_name { 'SecondaryName' }
     secondary_phone { '1-312-456-7890' }
   end
+
+  trait :org_rejected do
+    rejection_reason { "You failed"}
+  end        
 end
