@@ -20,6 +20,24 @@ RSpec.describe DashboardHelper, type: :helper do
 
     #     it ""
 
+    context "admin" do
+        # let(:user) { build(:user, :admin?: true) } # one way to do this
+        let(:user) { instance_double('User', admin?: true) }
+        
+        describe "gets the admin dashboard" do
+            it { expect(helper.dashboard_for(user)).to eq 'admin_dashboard' }
+        end
+    end
+
+    context "organization approved" do
+        # let(:user) { build(:user, :organization_approved) } # one way to do this
+        let(:user) { instance_double('User', admin?: false, organization: Organization.new(status: :approved)) }
+
+        describe "gets the organization_approved_dashboard dashboard" do
+            it { expect(helper.dashboard_for(user)).to eq 'organization_approved_dashboard' }
+        end
+    end
+
 
 
 
