@@ -115,15 +115,6 @@ RSpec.describe RegionsController, type: :controller do
         }
       end
 
-      #DONT DO THIS YET!!!!!
-      # describe "POST #create already created redirects to regions" do
-      #   let(:region) { create(:region) }
-      #   it {
-      #     post(:create, params: { region: attributes_for(:region) })
-      #     expect(response).to redirect_to(regions) 
-      #   }
-      # end
-
       describe "GET #edit" do
         let(:region) { create(:region) }
         it { expect(get(:edit, params: { id: region.id } )).to be_successful }
@@ -136,6 +127,12 @@ RSpec.describe RegionsController, type: :controller do
       describe "PATCH #update" do 
         let(:region) { create(:region) }
         it { expect(patch(:update, params: { id: region.id, region: {name:"updated" } })).to redirect_to(@region) }
+      
+        it {
+          expect_any_instance_of(Region).to receive(:update).and_return(false)
+          expect(patch(:update, params: { id: region.id, region: {name:"updated" } })).to be_successful
+        }
+      
       end
 
       describe "DELETE #destroy" do
