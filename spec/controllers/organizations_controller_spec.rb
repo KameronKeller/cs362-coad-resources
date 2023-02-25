@@ -63,15 +63,11 @@ RSpec.describe OrganizationsController, type: :controller do
 
         describe "POST #create" do
             let(:organization) { create(:organization) }
-            # it {
-            #     # email_double = double("UserMailer")
-            #     # allow(email_double).to receive(:with)
-            #     # allow(email_double).to receive(:deliver_now)
-            #     # email_double = instance_double(UserMailer)
-            #     expect(UserMailer).to receive(:with).with(to: admin, new_organization: organization).and_return(email_double)
-            #     post(:create, params: { organization: attributes_for(:organization) })
-            #     expect(response).to be_successful 
-            # }
+            it {
+                user = create(:user, :admin)
+                post(:create, params: { organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organization_application_submitted_path) 
+            }
 
             it { 
                 expect_any_instance_of(Organization).to receive(:save).and_return(false)
