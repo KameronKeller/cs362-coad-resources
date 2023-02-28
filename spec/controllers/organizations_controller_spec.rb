@@ -25,7 +25,8 @@ RSpec.describe OrganizationsController, type: :controller do
         #   }
 
         describe "PATCH #update" do #is this correct?
-          let(:organization) { build(:organization) } #why build and not create? 
+
+          let(:organization) { create(:organization) }
           it { expect(patch(:update, params: { id: organization.id, organization: {name:"updated" } })).to redirect_to(organization_path) }
 
           it {
@@ -35,14 +36,14 @@ RSpec.describe OrganizationsController, type: :controller do
         
         end
 
-        describe "APPROVE #approve" do
+        describe "POST #approve" do
           let(:organization) { build(:organization) } 
-          it { expect(get(:approve, params: { id: organization.id })).to redirect_to(dashboard_path) }
+          it { expect(post(:approve, params: { id: organization.id })).to redirect_to(dashboard_path) }
         end
 
-        describe "REJECT #reject" do
+        describe "POST #reject" do
           let(:organization) { build(:organization) } 
-          it { expect(get(:reject, params: { id: organization.id })).to redirect_to(dashboard_path) }
+          it { expect(post(:reject, params: { id: organization.id })).to redirect_to(dashboard_path) }
         end
 
 
@@ -82,6 +83,16 @@ RSpec.describe OrganizationsController, type: :controller do
         # }
         end
 
+        describe "POST #approve" do
+          let(:organization) { build(:organization) } 
+          it { expect(post(:approve, params: { id: organization.id })).to redirect_to(dashboard_path) }
+        end
+
+        describe "POST #reject" do
+          let(:organization) { build(:organization) } 
+          it { expect(post(:reject, params: { id: organization.id })).to redirect_to(dashboard_path) }
+        end
+
     end
 
 
@@ -102,6 +113,18 @@ RSpec.describe OrganizationsController, type: :controller do
         describe "POST #create" do
             it { expect(post(:create)).to redirect_to(new_user_session_path) }
         end
+
+        describe "POST #approve" do
+          let(:organization) { build(:organization) } 
+          it { expect(post(:approve, params: { id: organization.id })).to redirect_to(new_user_session_path) }
+        end
+
+        describe "POST #reject" do
+          let(:organization) { build(:organization) } 
+          it { expect(post(:reject, params: { id: organization.id })).to redirect_to(new_user_session_path) }
+        end
+
+
     end
 
     # ADMIN
@@ -121,8 +144,33 @@ RSpec.describe OrganizationsController, type: :controller do
             it { expect(post(:create)).to redirect_to(dashboard_path) }
         end
 
+        describe "POST #approve" do
+            let(:organization) { create(:organization) }
+            it { expect(post(:approve,  params: { id: organization.id })).to redirect_to(organizations_path) }
 
-        # describe "APPROVE #approve" do
+            it {
+                expect_any_instance_of(Organization).to receive(:save).and_return(false)
+                expect(post(:approve, params: { id: organization.id }))
+                expect(response).to be_successful
+            }
+        end
+
+        describe "POST #reject" do
+            let(:organization) { create(:organization) }
+            it { 
+                organization.rejection_reason = "rejected"
+                expect(post(:reject, params: { id: organization.id, organization: {rejection_reason: "rejected" } })).to redirect_to(organizations_path)
+            } 
+
+            it {
+                expect_any_instance_of(Organization).to receive(:save).and_return(false)
+                expect(post(:approve, params: { id: organization.id }))
+                expect(response).to be_successful
+            }
+            
+        end
+
+        # describe "POST #approve" do
         #   let(:organization) { create(:organization) } 
         #   it { expect(get(:approve, params: { id: organization.id })).to redirect_to(organizations_path) }
           
@@ -134,9 +182,9 @@ RSpec.describe OrganizationsController, type: :controller do
 
 
         # #rejection_reason:"stuff" ?
-        # describe "REJECT #reject" do
+        # describe "POST #reject" do
         #   let(:organization) { create(:organization, :org_rejected) } 
-        #   it { expect(get(:reject, params: { id: organization.id})).to redirect_to(organizations_path) }
+        #   it { expect(post(:reject, params: { id: organization.id})).to redirect_to(organizations_path) }
 
         #   it { 
         #     expect_any_instance_of(Organization).to receive(:reject).and_return(false)
