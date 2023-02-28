@@ -38,3 +38,6 @@
 
 .ruby-gemset
 .ruby-version
+
+# Ignore RubyMine files
+.idea
