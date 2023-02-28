@@ -1,8 +1,20 @@
 FactoryBot.define do
   factory :organization do
-    id { 1234 }
-    email { 'ultimate_org@awesome.com' }
-    name { 'OrgAwesome' }
+    sequence :id do |n|
+      n
+    end
+    # id { 1234 }
+
+    sequence :email do |n|
+        "fake#{n}@factory.com"
+    end
+    # email { 'ultimate_org@awesome.com' }
+
+    sequence :name do |n|
+      "fake org #{n}"
+    end
+    # name { 'OrgAwesome' }
+
     phone { '1-123-456-7890' }
     status { 1 }
     primary_name { 'PrimaryName' }
