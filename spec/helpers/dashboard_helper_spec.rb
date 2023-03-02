@@ -38,6 +38,33 @@ RSpec.describe DashboardHelper, type: :helper do
         end
     end
 
+    context "organization submitted" do
+        # let(:user) { build(:user, :organization_approved) } # one way to do this
+        let(:user) { instance_double('User', admin?: false, organization: Organization.new(status: :submitted)) }
+
+        describe "gets the organization_submitted_dashboard dashboard" do
+            it { expect(helper.dashboard_for(user)).to eq 'organization_submitted_dashboard' }
+        end
+    end
+
+    context "organization locked" do
+        # let(:user) { build(:user, :organization_approved) } # one way to do this
+        let(:user) { instance_double('User', admin?: false, organization: Organization.new(status: :locked)) }
+
+        describe "gets the create_application_dashboard dashboard" do
+            it { expect(helper.dashboard_for(user)).to eq 'create_application_dashboard' }
+        end
+    end
+
+    context "organization rejected" do
+        # let(:user) { build(:user, :organization_approved) } # one way to do this
+        let(:user) { instance_double('User', admin?: false, organization: Organization.new(status: :rejected)) }
+
+        describe "gets the create_application_dashboard dashboard" do
+            it { expect(helper.dashboard_for(user)).to eq 'create_application_dashboard' }
+        end
+    end
+
 
 
 
