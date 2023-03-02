@@ -3,7 +3,7 @@ module UserHelpers
     visit login_path
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
-    find_by_id('commit').click
+    find_by_id('commit').click # find by html id
   end
 end
 
