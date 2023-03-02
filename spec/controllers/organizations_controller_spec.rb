@@ -95,9 +95,6 @@ RSpec.describe OrganizationsController, type: :controller do
 
     end
 
-
-
-
     # LOGGED OUT
     context 'as a logged-out user' do
         let(:user) { create(:user) }
@@ -169,28 +166,6 @@ RSpec.describe OrganizationsController, type: :controller do
             }
             
         end
-
-        # describe "POST #approve" do
-        #   let(:organization) { create(:organization) } 
-        #   it { expect(get(:approve, params: { id: organization.id })).to redirect_to(organizations_path) }
-          
-        #   it {  #why is this returning false instead of true, when regions does the same thing?
-        #     expect_any_instance_of(Organization).to receive(:approve).and_return(false)
-        #     expect(get(:approve, params: { id: organization.id })).to be_successful 
-        #   }
-        # end
-
-
-        # #rejection_reason:"stuff" ?
-        # describe "POST #reject" do
-        #   let(:organization) { create(:organization, :org_rejected) } 
-        #   it { expect(post(:reject, params: { id: organization.id})).to redirect_to(organizations_path) }
-
-        #   it { 
-        #     expect_any_instance_of(Organization).to receive(:reject).and_return(false)
-        #     expect(get(:reject, params: { id: organization.id })).to be_successful
-        #   }
-        # end
 
     end
 
