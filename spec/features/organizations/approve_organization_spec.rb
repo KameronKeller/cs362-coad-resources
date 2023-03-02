@@ -11,6 +11,7 @@ RSpec.describe 'Approving an organization', type: :feature do
 
         click_on 'Organizations'
         click_on 'Pending'
+        # save_and_open_page()
         click_on 'Review'
         click_on 'Approve'
 
