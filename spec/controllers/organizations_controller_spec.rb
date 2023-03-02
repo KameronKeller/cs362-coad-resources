@@ -151,7 +151,7 @@ RSpec.describe OrganizationsController, type: :controller do
             it {
                 expect_any_instance_of(Organization).to receive(:save).and_return(false)
                 expect(post(:approve, params: { id: organization.id }))
-                expect(response).to be_successful
+                expect(response).to redirect_to organization_path(id: organization.id)
             }
         end
 
@@ -164,8 +164,8 @@ RSpec.describe OrganizationsController, type: :controller do
 
             it {
                 expect_any_instance_of(Organization).to receive(:save).and_return(false)
-                expect(post(:approve, params: { id: organization.id }))
-                expect(response).to be_successful
+                expect(post(:reject, params: { id: organization.id, organization: {rejection_reason: "rejected" } }))
+                expect(response).to redirect_to organization_path(id: organization.id)
             }
             
         end
