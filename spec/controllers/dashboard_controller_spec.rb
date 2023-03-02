@@ -9,6 +9,26 @@ RSpec.describe DashboardController, type: :controller do
         describe "GET #index" do
             it { expect(get(:index)).to be_successful }
         end
+
+        describe "GET #index?status=Open" do
+            it { expect(get(:index, params: { status: "Open" })).to be_successful }
+        end
+
+        describe "GET #index?status=Closed" do
+            it { expect(get(:index, params: { status: "Closed" })).to be_successful }
+        end
+
+        describe "GET #index?status=Captured" do
+            it { expect(get(:index, params: { status: "Captured" })).to be_successful }
+        end
+
+        describe "GET #index?status=My Captured" do
+            it { expect(get(:index, params: { status: "My Captured" })).to be_successful }
+        end
+
+        describe "GET #index?status=My Closed" do
+            it { expect(get(:index, params: { status: "My Closed" })).to be_successful }
+        end
     end
 
     context 'as a user with an approved organization' do
