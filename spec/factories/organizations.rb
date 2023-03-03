@@ -16,7 +16,7 @@ FactoryBot.define do
     # name { 'OrgAwesome' }
 
     phone { '1-123-456-7890' }
-    status { 1 }
+    # status { 1 }
     primary_name { 'PrimaryName' }
     secondary_name { 'SecondaryName' }
     secondary_phone { '1-312-456-7890' }
