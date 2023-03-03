@@ -16,13 +16,6 @@ RSpec.describe OrganizationsController, type: :controller do
           it { expect(get(:new)).to redirect_to(dashboard_path) } 
         end
   
-        describe "POST #create" do #can a existing user make a organization?
-            it { expect(post(:create)).to redirect_to(dashboard_path) }
-        end
-        #    it {
-        #     post(:create, params: { organization: attributes_for(:organization) })
-        #     expect(response).to be_successful
-        #   }
 
         describe "PATCH #update" do #is this correct?
 
@@ -75,12 +68,6 @@ RSpec.describe OrganizationsController, type: :controller do
                 expect(post(:create, params: { organization: attributes_for(:organization)}))
                 expect(response).to be_successful
             }
-
-        #             it {
-        #   expect_any_instance_of(Region).to receive(:save).and_return(false)
-        #   post(:create, params: { region: attributes_for(:region) })
-        #   expect(response).to be_successful 
-        # }
         end
 
         describe "POST #approve" do
@@ -107,10 +94,6 @@ RSpec.describe OrganizationsController, type: :controller do
             it { expect(get(:new)).to redirect_to(new_user_session_path)}
         end
 
-        describe "POST #create" do
-            it { expect(post(:create)).to redirect_to(new_user_session_path) }
-        end
-
         describe "POST #approve" do
           let(:organization) { build(:organization) } 
           it { expect(post(:approve, params: { id: organization.id })).to redirect_to(new_user_session_path) }
@@ -135,10 +118,6 @@ RSpec.describe OrganizationsController, type: :controller do
         
         describe "GET #new" do
             it { expect(get(:new)).to redirect_to(dashboard_path) }
-        end
-
-        describe "POST #create" do #can a existing user make a organization?
-            it { expect(post(:create)).to redirect_to(dashboard_path) }
         end
 
         describe "POST #approve" do
