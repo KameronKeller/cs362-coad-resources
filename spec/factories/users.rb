@@ -18,7 +18,6 @@ FactoryBot.define do
         
         trait :organization_unapproved do
             role {:organization}
-            # organization_id {create(:organization, :submitted).id }
         end        
 
         trait :admin do
