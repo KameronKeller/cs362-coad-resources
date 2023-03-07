@@ -2,7 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'Creating an Organization Application', type: :feature do
 
+    
+
+    # before(:each) do
+    #     create(:user, :admin)
+    #     create(:resource_category)
+    #   end
+
     it 'can be done with a new user' do
+        
         # Login with an unapproved user
         user = create(:user)
         # organization = create(:organization)
@@ -50,8 +58,15 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
 
         # check a box for donating
         # find(:css, "#organization_resource_category_ids_1[value='1']").set(true)
-        # check('organization_resource_category_ids_8')
+        uncheck('organization_resource_category_ids_1')
         # find('label[for=organization_General]').click
+        # find_by_id('new_organization')
+        # pp page.all('input')
+        
+        # for x in page.all('input') do
+        #     pp x[:id]
+        # end
+        # save_and_open_page
 
         # enter a description
         fill_in 'organization_description', with: 'Description'
