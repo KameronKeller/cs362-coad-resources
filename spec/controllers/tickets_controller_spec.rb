@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe TicketsController, type: :controller do
 
 
-    
+
     #NON-USER:
     context 'As a logged-out user' do
         
@@ -73,6 +73,20 @@ RSpec.describe TicketsController, type: :controller do
                 expect(post(:release, params: { id: ticket.id } )).to be_successful }
 
         end
+
+        describe "PATCH #close" do
+            let(:resource_category) {create(:resource_category)}
+            let(:region) {create(:region) }
+            let(:ticket) { create(:ticket, region_id: region.id, resource_category_id: resource_category.id, organization_id: user.organization_id) }
+
+            it{
+                expect(patch(:close, params: { id: ticket.id } )).to redirect_to(dashboard_path << '#tickets:organization')}
+            it{
+                expect(TicketService).to receive(:close_ticket).and_return(false)
+                expect(patch(:close, params: { id: ticket.id } )).to be_successful }
+        
+        end
+        
 
     end
 
