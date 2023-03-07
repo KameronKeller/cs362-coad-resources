@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe TicketsController, type: :controller do
 
+
+    
     #NON-USER:
     context 'As a logged-out user' do
         
@@ -37,6 +39,7 @@ RSpec.describe TicketsController, type: :controller do
     context 'as a approved user' do
         let(:user) { create(:user, :organization_approved) }
         before(:each) { sign_in(user) }
+        #NEEDS TO CREATE ORGANIZATION
 
         describe "GET #show" do
             let(:resource_category) {create(:resource_category)}
@@ -61,7 +64,7 @@ RSpec.describe TicketsController, type: :controller do
         describe "POST #release" do
             let(:resource_category) {create(:resource_category)}
             let(:region) {create(:region) }
-            let(:ticket) { create(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
+            let(:ticket) { create(:ticket, region_id: region.id, resource_category_id: resource_category.id, organization_id: user.organization_id) }
 
             it{
                 expect(post(:release, params: { id: ticket.id } )).to redirect_to(dashboard_path << '#tickets:organization')}
@@ -93,6 +96,8 @@ RSpec.describe TicketsController, type: :controller do
             }
         end 
 
+
+        #can you even release as admin?
         describe "POST #release" do
             let(:resource_category) {create(:resource_category)}
             let(:region) {create(:region) }
