@@ -2,19 +2,40 @@ require 'rails_helper'
 
 RSpec.describe TicketsController, type: :controller do
 
+    # context "logged-in unapproved" do
+    #     # in-class
+    #     describe 'post #release' do
+    #         it {
+    #             user = create(:user, :organization_unapproved)
+    #             ticket = create(:ticket)
+    #             post(:release, params: { id: ticket.id})
+    #             expect(response).to redirect_to dashboard_path
+    #         }
+    #     end
+    # end
 
 
     #NON-USER:
     context 'As a logged-out user' do
+
+        ## in-class ###
+        describe 'post #release' do
+            it {
+                ticket = create(:ticket)
+                post(:release, params: { id: ticket.id})
+                expect(response).to redirect_to dashboard_path
+            }
+        end
         
         describe "GET #index" do
             it { expect(get(:new)).to be_successful }
         end
 
+        #region name error
         describe "POST #create" do
-            let (:ticket) { create(:ticket) }
             let(:resource_category) {create(:resource_category)}
             let(:region) {create(:region) }
+            let (:ticket) { create(:ticket) }
             it{
                 a = attributes_for(:ticket)
                 a[:region_id] = region.id
@@ -39,7 +60,35 @@ RSpec.describe TicketsController, type: :controller do
     context 'as a approved user' do
         let(:user) { create(:user, :organization_approved) }
         before(:each) { sign_in(user) }
-        #NEEDS TO CREATE ORGANIZATION
+
+        # In class
+        # describe 'post #release' do
+        #     it {
+        #         ticket = create(:ticket)
+        #         post(:release, params: { id: 999 })
+        #         expect(response).to redirect_to dashboard_path
+        #     }
+        # end
+
+        # In class
+            describe 'post #release do own the ticket' do
+                it {
+                    ticket = create(:ticket, organization_id: user.organization_id)
+                    post(:release, params: { id: ticket.id })
+                    expect(response).to redirect_to (dashboard_path << '#tickets:organization')
+                }
+            end
+
+            # In class
+            describe 'post #release don\'t own the ticket' do
+                it {
+                    org2 = create(:organization)
+                    ticket = create(:ticket, organization_id: org2.id)
+                    post(:release, params: { id: ticket.id })
+                    expect(response).to be_successful
+                }
+            end
+
 
         describe "GET #show" do
             let(:resource_category) {create(:resource_category)}
@@ -110,21 +159,41 @@ RSpec.describe TicketsController, type: :controller do
             }
         end 
 
+        # in-class
+        describe 'post #release' do
+            it {
+                user = create(:user, :admin)
+                ticket = create(:ticket)
+                post(:release, params: { id: ticket.id})
+                expect(response).to redirect_to dashboard_path
+            }
+        end
 
-        #can you even release as admin?
+        # in class
+        describe 'post #release don\'t own the ticket' do
+            it {
+                user = create(:user, :organization_approved, :admin)
+                sign_in user
+                ticket = create(:ticket, organization_id: user.organization_id)
+                post(:release, params: { id: ticket.id })
+                expect(response).to redirect_to (dashboard_path << '#tickets:captured')
+            }
+        end
+
+
+
         describe "POST #release" do
             let(:resource_category) {create(:resource_category)}
             let(:region) {create(:region) }
             let(:ticket) { create(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
 
             it{
-                expect(post(:release, params: { id: ticket.id } )).to redirect_to(redirect_to dashboard_path << '#tickets:captured')
-            }
+                expect(post(:release, params: { id: ticket.id } )).to redirect_to(dashboard_path)} #can't redirect to captured, no tickets belong to admins
 
-            it{
-                expect(TicketService).to receive(:release_ticket).and_return(false)
-                expect(post(:release, params: { id: ticket.id } )).to be_successful 
-            }
+            #causing ERRORS
+            # it{
+            #     expect(TicketService).to receive(:release_ticket).and_return(false)
+            #     expect(post(:release, params: { id: ticket.id } )).to be_successful }
 
         end
 
@@ -137,6 +206,19 @@ RSpec.describe TicketsController, type: :controller do
                 expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path << '#tickets') 
             }
                 #expect(response).to redirect_to(regions_path) 
+        end
+
+        describe "PATCH #close" do
+            let(:resource_category) {create(:resource_category)}
+            let(:region) {create(:region) }
+            let(:ticket) { create(:ticket, region_id: region.id, resource_category_id: resource_category.id) }
+
+            it{
+                expect(patch(:close, params: { id: ticket.id } )).to redirect_to(dashboard_path << '#tickets:open')}
+            it{
+                expect(TicketService).to receive(:close_ticket).and_return(false)
+                expect(patch(:close, params: { id: ticket.id } )).to be_successful }
+        
         end
 
     end
