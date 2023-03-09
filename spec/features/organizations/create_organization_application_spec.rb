@@ -2,12 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Creating an Organization Application', type: :feature do
 
-    
-
     before(:each) do
         create(:user, :admin)
         create(:resource_category)
-      end
+    end
 
     it 'can be done with a new user' do
         
@@ -23,14 +21,14 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
         choose('organization_liability_insurance_true')
 
         # Check "I agree" on all items 
-        choose('organization_agreement_one_true')
-        choose('organization_agreement_two_true')
-        choose('organization_agreement_three_true')
-        choose('organization_agreement_four_true')
-        choose('organization_agreement_five_true')
-        choose('organization_agreement_six_true')
-        choose('organization_agreement_seven_true')
-        choose('organization_agreement_eight_true')
+        choose 'organization_agreement_one_true'
+        choose 'organization_agreement_two_true'
+        choose 'organization_agreement_three_true'
+        choose 'organization_agreement_four_true'
+        choose 'organization_agreement_five_true'
+        choose 'organization_agreement_six_true'
+        choose 'organization_agreement_seven_true'
+        choose 'organization_agreement_eight_true'
 
         # Enter name
         fill_in 'organization_primary_name', with: 'Content'
@@ -57,14 +55,14 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
         fill_in 'organization_email', with: 'content@content.com'
 
         # check a box for donating
-        uncheck('organization_resource_category_ids_1')
+        check('organization_resource_category_ids_1')
 
         # enter a description
         fill_in 'organization_description', with: 'Description'
 
         # check transportation button
         choose('organization_transportation_yes')
-
+        
         # Click apply
         click_on 'Apply'
 
