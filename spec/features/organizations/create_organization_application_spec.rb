@@ -4,10 +4,10 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
 
     
 
-    # before(:each) do
-    #     create(:user, :admin)
-    #     create(:resource_category)
-    #   end
+    before(:each) do
+        create(:user, :admin)
+        create(:resource_category)
+      end
 
     it 'can be done with a new user' do
         
@@ -57,16 +57,7 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
         fill_in 'organization_email', with: 'content@content.com'
 
         # check a box for donating
-        # find(:css, "#organization_resource_category_ids_1[value='1']").set(true)
         uncheck('organization_resource_category_ids_1')
-        # find('label[for=organization_General]').click
-        # find_by_id('new_organization')
-        # pp page.all('input')
-        
-        # for x in page.all('input') do
-        #     pp x[:id]
-        # end
-        # save_and_open_page
 
         # enter a description
         fill_in 'organization_description', with: 'Description'
