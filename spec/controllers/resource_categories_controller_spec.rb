@@ -23,7 +23,7 @@ RSpec.describe ResourceCategoriesController, type: :controller do
           }
         end
 
-        describe "PATCH #update" do #is this correct?
+        describe "PATCH #update" do
           let(:resource_category) { create(:resource_category) } 
           it { expect(patch(:update, params: { id: resource_category.id, resource_category: {name:"updated" } })).to redirect_to(dashboard_path) }
         end
@@ -65,7 +65,7 @@ RSpec.describe ResourceCategoriesController, type: :controller do
          }
        end
 
-       describe "PATCH #update" do #is this correct?
+       describe "PATCH #update" do
           let(:resource_category) { create(:resource_category) } 
           it { expect(patch(:update, params: { id: resource_category.id, resource_category: {name:"updated" } })).to redirect_to(new_user_session_path) }
         end
@@ -94,7 +94,7 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         before(:each) { sign_in(user) }
 
         describe "GET #index" do
-          it { expect(get(:index)).to be_successful } #what about checking in order?
+          it { expect(get(:index)).to be_successful }
         end
 
         describe "GET #new" do

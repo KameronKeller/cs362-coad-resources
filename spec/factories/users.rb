@@ -1,7 +1,5 @@
 FactoryBot.define do
     factory :user do
-        #role { :organization }
-        #email { 'admin_user@test.com' }
 
         sequence :email do |n|
             "fake#{n}@factory.com"
@@ -11,7 +9,7 @@ FactoryBot.define do
 
         before(:create) { |user| user.skip_confirmation!}
 
-        trait :organization_approved do #added in organization approved/unapproved traits based on class example
+        trait :organization_approved do
             role {:organization}
             organization_id {create(:organization, :approved).id }
         end
@@ -26,10 +24,3 @@ FactoryBot.define do
     end
 
   end
-
-
-
-
-#   sequence :name do |n|
-#     "fake_#{n}"
-#   end

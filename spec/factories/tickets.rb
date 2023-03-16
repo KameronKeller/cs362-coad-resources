@@ -12,8 +12,3 @@ FactoryBot.define do
     end
 
   end
-
-#   #  validates_presence_of :name, :phone, :region_id, :resource_category_id
-#   validates_length_of :name, minimum: 1, maximum: 255, on: :create
-#   validates_length_of :description, maximum: 1020, on: :create
-#   validates :phone, phony_plausible: true

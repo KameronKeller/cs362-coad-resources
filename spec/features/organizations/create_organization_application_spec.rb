@@ -11,7 +11,6 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
         
         # Login with an unapproved user
         user = create(:user)
-        # organization = create(:organization)
         log_in_as(user)
 
         # Click "Create Application"

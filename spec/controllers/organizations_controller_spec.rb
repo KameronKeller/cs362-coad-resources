@@ -17,7 +17,7 @@ RSpec.describe OrganizationsController, type: :controller do
         end
   
 
-        describe "PATCH #update" do #is this correct?
+        describe "PATCH #update" do
 
           let(:organization) { create(:organization) }
           it { expect(patch(:update, params: { id: organization.id, organization: {name:"updated" } })).to redirect_to(organization_path) }
@@ -113,7 +113,7 @@ RSpec.describe OrganizationsController, type: :controller do
         before(:each) { sign_in(user) }
 
         describe "GET #index" do
-            it { expect(get(:index)).to be_successful } #what about checking in order?
+            it { expect(get(:index)).to be_successful }
         end
         
         describe "GET #new" do

@@ -6,17 +6,13 @@ RSpec.describe 'Creating a Ticket', type: :feature do
         resource_category = create(:resource_category)
         region = create(:region)
         visit root_path
-        #save_and_open_page
         click_on 'Get Help'
         
 
 
         fill_in 'ticket_name', with: 'Content'
         fill_in 'ticket_phone', with: '1-541-456-7890'
-        #click_on 'ticket_region_id'
-        #save_and_open_page
         select region.name, from: 'ticket_region_id'
-        #select 'Bend', :from => 'ticket_region_id'
         select resource_category.name, :from => 'ticket_resource_category_id'
 
         click_on 'Send this help request'

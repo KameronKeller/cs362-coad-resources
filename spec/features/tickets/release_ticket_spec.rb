@@ -16,18 +16,12 @@ RSpec.describe 'Releasing a ticket by an', type: :feature do
         #navigate to tickets
         click_on 'Tickets'
 
-        #find captured
-        #find('status').find(:option, 'My Captured').select_option
-        #select 'My Captured', :from => 'status'
-        #click_on 'Tickets'
         expect(page).to have_content 'FakeTicket' #confirms theres the fake ticket in captured
         click_on 'FakeTicket'
         click_on 'Release'
         click_on 'Tickets'
         click_on 'FakeTicket'
-        #select 'My Captured', :from => 'status'
-        #click_on 'Tickets'
-        #save_and_open_page
+        
         expect(page).to_not have_content 'Release'
         
 

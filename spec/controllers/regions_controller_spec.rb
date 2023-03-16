@@ -32,7 +32,7 @@ RSpec.describe RegionsController, type: :controller do
         it { expect(get(:edit, params: { id: region.id } )).to redirect_to(dashboard_path) }
       end
 
-      describe "PATCH #update" do #is this... correct?
+      describe "PATCH #update" do
       #users don't have access to edit region, should be redirected
         let(:region) { create(:region) } #create region to work with
         it { expect(patch(:update, params: { id: region.id, region: {name:"updated" } })).to redirect_to(dashboard_path) }
@@ -74,7 +74,7 @@ RSpec.describe RegionsController, type: :controller do
         it { expect(get(:edit, params: { id: region.id } )).to redirect_to(new_user_session_path) }
       end
 
-      describe "PATCH #update" do #is this... correct?
+      describe "PATCH #update" do
         #users don't have access to edit region, should be redirected
           let(:region) { create(:region) } #create region to work with
           it { expect(patch(:update, params: { id: region.id, region: {name:"updated" } })).to redirect_to(new_user_session_path) }

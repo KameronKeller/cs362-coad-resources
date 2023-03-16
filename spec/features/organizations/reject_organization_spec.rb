@@ -31,11 +31,8 @@ RSpec.describe 'Rejecting an organization', type: :feature do
 
         visit dashboard_path
 
-        # expect(page).not_to have_content '???'
-        # puts current_path
         expect(current_path).to_not have_content 'Organization Applications'
 
-        # visit organization_path(id: organization.id) # visit the path to a specific organization
         visit organization_path(id: not_approved_organization.id) # visit the path to a specific organization
         expect(page).not_to have_content 'Reject'
     end

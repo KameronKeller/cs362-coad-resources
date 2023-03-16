@@ -57,8 +57,6 @@ RSpec.describe DashboardController, type: :controller do
             it { expect(get(:index)).to be_successful }
         end
 
-        # describe ""
-        # post(:create, params: { resource_category: attributes_for(:resource_category) })
     end
 
 end

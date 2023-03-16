@@ -20,6 +20,7 @@ RSpec.describe 'Updating an Organization', type: :feature do
 
         #confirm sucessful/failure
         ###????###
+        # The code in controller was never implemented, nothing to test here
 
 
 

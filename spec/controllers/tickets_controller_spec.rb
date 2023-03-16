@@ -2,18 +2,6 @@ require 'rails_helper'
 
 RSpec.describe TicketsController, type: :controller do
 
-    # context "logged-in unapproved" do
-    #     # in-class
-    #     describe 'post #release' do
-    #         it {
-    #             user = create(:user, :organization_unapproved)
-    #             ticket = create(:ticket)
-    #             post(:release, params: { id: ticket.id})
-    #             expect(response).to redirect_to dashboard_path
-    #         }
-    #     end
-    # end
-
 
     #NON-USER:
     context 'As a logged-out user' do
@@ -41,7 +29,7 @@ RSpec.describe TicketsController, type: :controller do
                 a[:region_id] = region.id
                 a[:resource_category_id] = resource_category.id
 
-                post(:create, params: {ticket: a }) #returns 200ok
+                post(:create, params: {ticket: a })
                 expect(response).to redirect_to(ticket_submitted_path)
             }
 
@@ -60,15 +48,6 @@ RSpec.describe TicketsController, type: :controller do
     context 'as a approved user' do
         let(:user) { create(:user, :organization_approved) }
         before(:each) { sign_in(user) }
-
-        # In class
-        # describe 'post #release' do
-        #     it {
-        #         ticket = create(:ticket)
-        #         post(:release, params: { id: 999 })
-        #         expect(response).to redirect_to dashboard_path
-        #     }
-        # end
 
         # In class
             describe 'post #release do own the ticket' do
@@ -190,10 +169,6 @@ RSpec.describe TicketsController, type: :controller do
             it{
                 expect(post(:release, params: { id: ticket.id } )).to redirect_to(dashboard_path)} #can't redirect to captured, no tickets belong to admins
 
-            #causing ERRORS
-            # it{
-            #     expect(TicketService).to receive(:release_ticket).and_return(false)
-            #     expect(post(:release, params: { id: ticket.id } )).to be_successful }
 
         end
 
@@ -205,7 +180,6 @@ RSpec.describe TicketsController, type: :controller do
             it { 
                 expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path << '#tickets') 
             }
-                #expect(response).to redirect_to(regions_path) 
         end
 
         describe "PATCH #close" do
