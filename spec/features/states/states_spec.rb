@@ -1,3 +1,5 @@
+# States is not implemented, in-class notes
+
 # require 'rails_helper'
 
 # RSpec.feature "States", :type => :feature do
